@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Main Menu Item -->
-    <menuitem id="menu_account_batch_payment"
+    <menuitem id="menu_account_batch_payment_root"
               name="Batch Payments"
-              parent="account.menu_finance_payables"
-              action="action_account_batch_payment"
-              sequence="20"
+              parent="account.menu_finance"
+              sequence="8"
               groups="account.group_account_user"/>
 
-    <!-- Submenu for Vendor Batch Payments -->
-    <menuitem id="menu_account_batch_payment_out"
-              name="Batch Payments to Suppliers"
-              parent="account.menu_finance_payables"
-              action="action_account_batch_payment_out"
-              sequence="21"
+    <menuitem id="menu_account_batch_payment_all"
+              name="All Batch Payments"
+              parent="menu_account_batch_payment_root"
+              action="action_account_batch_payment_all"
+              sequence="1"
               groups="account.group_account_user"/>
 
-    <!-- Menu for Customer Batch Payments -->
     <menuitem id="menu_account_batch_payment_in"
-              name="Batch Payments from Customers"
+              name="Customer Batch Payments"
               parent="account.menu_finance_receivables"
               action="action_account_batch_payment_in"
-              sequence="21"
+              sequence="25"
+              groups="account.group_account_user"/>
+
+    <menuitem id="menu_account_batch_payment_out"
+              name="Vendor Batch Payments"
+              parent="account.menu_finance_payables"
+              action="action_account_batch_payment_out"
+              sequence="25"
               groups="account.group_account_user"/>
 </odoo>

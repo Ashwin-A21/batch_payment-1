@@ -50,7 +50,6 @@
                                 <p>
                                     <span t-if="o.state == 'draft'" class="badge badge-info">Draft</span>
                                     <span t-if="o.state == 'validated'" class="badge badge-success">Validated</span>
-                                    <span t-if="o.state == 'reconciled'" class="badge badge-secondary">Reconciled</span>
                                 </p>
                             </div>
                             <div class="col-6">
@@ -63,32 +62,33 @@
                         <table class="table table-sm">
                             <thead>
                                 <tr>
-                                    <th>Date</th>
-                                    <th>Partner</th>
+                                    <th>Date</th> <th>Partner</th>
                                     <th>Reference</th>
                                     <th class="text-right">Amount</th>
-                                    <th>Status</th>
-                                </tr>
+                                    <th>Status</th> </tr>
                             </thead>
                             <tbody>
-                                <tr t-foreach="o.payment_ids" t-as="payment">
+                                <tr t-foreach="o.payment_ids" t-as="line">
                                     <td>
-                                        <span t-field="payment.date"/>
+                                        <span t-field="o.date"/>
                                     </td>
                                     <td>
-                                        <span t-field="payment.partner_id.name"/>
+                                        <span t-field="line.partner_id.name"/>
                                     </td>
                                     <td>
-                                        <span t-field="payment.ref"/>
+                                        <span t-field="line.ref"/>
                                     </td>
                                     <td class="text-right">
-                                        <span t-field="payment.amount" t-options="{'widget': 'monetary', 'display_currency': payment.currency_id}"/>
+                                        <span t-field="line.amount" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
                                     </td>
                                     <td>
-                                        <span t-if="payment.state == 'draft'">Draft</span>
-                                        <span t-if="payment.state == 'posted'">Posted</span>
-                                        <span t-if="payment.state == 'reconciled'">Reconciled</span>
-                                        <span t-if="payment.state == 'cancelled'">Cancelled</span>
+                                        <span t-if="not line.payment_id">Draft</span>
+                                        <span t-if="line.payment_id">
+                                            <span t-if="line.state == 'draft'">Draft</span>
+                                            <span t-if="line.state == 'posted'">Posted</span>
+                                            <span t-if="line.state == 'reconciled'">Reconciled</span>
+                                            <span t-if="line.state == 'cancelled'">Cancelled</span>
+                                        </span>
                                     </td>
                                 </tr>
                             </tbody>
